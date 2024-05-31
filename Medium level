@@ -1,3 +1,5 @@
+-- Case statement 
+
 SELECT *,
  CASE
   WHEN pay_level = 1 THEN salary * 1.1
@@ -5,3 +7,14 @@ SELECT *,
   WHEN pay_level = 3 THEN salary * 3
   END as new_salary
 FROM employees;
+
+
+-- Cross joint and left joint in one query
+
+SELECT s. student_id,s.student_name, su.subject_name, COUNT (ex.student_id) as attended_exams
+FROM students s
+CROSS JOIN subiects su
+LEFT JOIN examinations ex
+ON s.student_id = ex.student_id AND su. subject_name = ex.subject_name
+GROUP BY .student_id, s.student_name, su.subject_name
+ORDER BY s.student_id, su.subject_name;
