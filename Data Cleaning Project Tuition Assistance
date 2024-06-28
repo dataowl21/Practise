@@ -1,0 +1,147 @@
+SELECT *
+FROM tuition_assistance_program.tuition_assistance;
+
+-- Cleaning Degree Column 
+
+SELECT DISTINCT(degree)
+FROM tuition_assistance_program.tuition_assistance;
+
+SELECT *
+FROM tuition_assistance_program.tuition_assistance
+WHERE degree = "AA";
+
+UPDATE tuition_assistance
+SET degree = 'Associate'
+WHERE degree = 'AA';
+
+SELECT *
+FROM tuition_assistance_program.tuition_assistance
+WHERE degree = "Masters (MA/MS/MPH/etc.)";
+
+UPDATE tuition_assistance
+SET degree = 'Masters'
+WHERE degree = 'Masters (MA/MS/MPH/etc.)';
+
+SELECT *
+FROM tuition_assistance_program.tuition_assistance
+WHERE degree = "Bachelors (BA/BS)";
+
+UPDATE tuition_assistance
+SET degree = 'Bachelors'
+WHERE degree = 'Bachelors (BA/BS)';
+
+UPDATE tuition_assistance
+SET degree = 'Ph.D.'
+WHERE degree = 'Ph.D. (DCS)';
+
+UPDATE tuition_assistance
+SET degree = 'Ph.D.'
+WHERE degree = 'Ph.D. (DDE)';
+
+-- Cleaning Major Column
+
+SELECT DISTINCT(major)
+FROM tuition_assistance_program.tuition_assistance;
+
+SELECT *
+FROM tuition_assistance_program.tuition_assistance
+WHERE major = 'Marketing (Business)' OR major = 'Marketing (Business) ';
+
+SELECT DISTINCT(TRIM(major))
+FROM tuition_assistance_program.tuition_assistance;
+
+UPDATE tuition_assistance
+SET major = TRIM(major);
+
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Biological Sciences:%' THEN 'Biological Sciences'
+        ELSE major
+    END;
+
+
+UPDATE tuition_assistance
+SET major = 'Education'
+WHERE major = 'Education (Teacher:Undecided)';
+
+UPDATE tuition_assistance
+SET major = TRIM(major);
+
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Environmental Science%' THEN 'Environmental Science and Policy'
+        ELSE major
+    END;
+
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Engineering (Undecided)' THEN 'Engineering'
+        ELSE major
+    END;
+    
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major = 'Not Listed' THEN 'None'
+        WHEN major = 'Not Specified' THEN 'None'
+        ELSE major
+    END;
+
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Environmental Science%' THEN 'Environmental Science and Policy'
+        ELSE major
+    END;
+
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Undecided (Letters and Sciences)' THEN 'Letters and Sciences'
+        ELSE major
+    END;
+    
+UPDATE tuition_assistance
+SET major = 
+    CASE 
+        WHEN major LIKE 'Business/Admin./Mgmt.' THEN 'General Business and Management'
+        ELSE major
+    END;
+    
+SELECT DISTINCT(major)
+FROM tuition_assistance_program.tuition_assistance
+WHERE major LIKE '%(Business)%';
+
+UPDATE tuition_assistance
+SET major = REPLACE(major, '(Business)', '')
+WHERE major LIKE '%(Business)%';
+
+UPDATE tuition_assistance
+SET major = REPLACE(major, '/Misc.', '')
+WHERE major LIKE 'Other/Misc.';
+
+-- Cleaning School Column
+
+SELECT DISTINCT(school)
+FROM tuition_assistance_program.tuition_assistance;
+
+UPDATE tuition_assistance
+SET school = 
+    CASE 
+        WHEN school LIKE 'American Association of Diabetes Educators (AADE)' THEN 'American Association of Diabetes Educators'
+        ELSE school
+    END;
+
+UPDATE tuition_assistance
+SET school = 
+    CASE 
+        WHEN school LIKE 'AMERICAN PUBLIC UNIVERSITY' THEN 'American Public University'
+		WHEN school LIKE 'American Public University System' THEN 'American Public University'
+        ELSE school
+    END;
+    
+UPDATE tuition_assistance
+SET school = TRIM(school);
